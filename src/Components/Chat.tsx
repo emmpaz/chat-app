@@ -4,6 +4,9 @@ import { auth, db, cookies } from "./fire";
 import {v4 as uuid} from "uuid";
 import '../css/Chat.css';
 import { createMessage } from "../Functions/chatFunctions";
+import { GeneralButton } from "../Material/MaterialCustoms";
+import { ThemeProvider } from "@emotion/react";
+import { Input } from "@mui/material";
 
 
 type ScrollContainer = {
@@ -56,7 +59,7 @@ const Chat = (props: { room: string, roomsetting: Dispatch<SetStateAction<string
         <div className="chat-full-container">
             {props.room}
             <div>
-                <button onClick={handleLeaving}>leave</button>
+                <GeneralButton onClick={handleLeaving}>leave</GeneralButton>
             </div>
             <div className="chat-center-container">
                 <div className="messages-chat-list" id="scroller">
@@ -72,8 +75,8 @@ const Chat = (props: { room: string, roomsetting: Dispatch<SetStateAction<string
                     }
                 </div>
                 <form className="new-message">
-                    <input className="new-message-input" value={newMessage} onChange={(e) => { setNewMessage(e.target.value) }} />
-                    <button onClick={handleSubmit} type="submit" className="send-button">Send</button>
+                    <Input className="new-message-input" value={newMessage} onChange={(e) => { setNewMessage(e.target.value) }} />
+                    <GeneralButton onClick={handleSubmit} type="submit" className="send-button">Send</GeneralButton>
                 </form>
             </div>
         </div>

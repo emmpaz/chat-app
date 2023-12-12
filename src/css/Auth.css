@@ -1,0 +1,12 @@
+.auth-sign-in-container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.auth-sign-out-container{
+    width: 100%;
+}

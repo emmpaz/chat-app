@@ -1,29 +1,32 @@
 .chat-full-container{
-    border-style: solid;
     width: 100%;
+    align-items: center;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
 }
 
 .chat-center-container{
-    border-style: solid;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .messages-chat-list{
     overflow-y: scroll;
-    max-height: 500px;
     margin-bottom: 20px;
-    border-style: solid;
     display: flex;
     flex-direction: column;
     scroll-behavior: smooth;
+    width: 100%;
+    max-height: 500px;
 }
 
 .indepedent-message-self{
-    border-style: solid;
     display: flex;
     flex-direction : column;
     align-items: end;
+    border-bottom: solid .5px;
 }
 
 .p, .h3{
@@ -31,8 +34,8 @@
 }
 
 .indepedent-message-other{
-    border-style: solid;
     display: "flex";
     flex-direction : "column";
     align-items: "start";
+    border-bottom: solid .5px;
 }

@@ -1,6 +1,6 @@
 export const MESSAGE_COL = "messages"
 
-export const ROOM_COL = "messages"
+export const ROOM_COL = "rooms"
 
 export const ROOM_COOKIE = "rooms"
 
