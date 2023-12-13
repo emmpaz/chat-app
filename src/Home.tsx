@@ -11,7 +11,7 @@ import RoomItem from './Components/RoomItem';
 import { v4 as uuid } from 'uuid';
 import { FontTheme } from './Material/MaterialThemes';
 import { GeneralButton } from './Material/MaterialCustoms';
-import styled from '@emotion/styled';
+import { allUsers } from './Functions/userFunctions';
 
 function Home() {
 
@@ -21,11 +21,12 @@ function Home() {
     const roomRef = useRef<HTMLInputElement>(null);
 
     const [roomList, setRoomList] = useState<DocumentData[] | undefined>([]);
+    const [usersList, setUsersList] = useState<DocumentData[] | undefined>([]);
 
     useEffect(() => {
-        getRooms().then((result: DocumentData[] | undefined) => {
-            setRoomList(result)
-        })
+        getRooms().then((result: DocumentData[] | undefined) => setRoomList(result))
+
+        allUsers().then((result : DocumentData[] | undefined) => setUsersList(result))
     }, [isAuth, room])
 
     const handleNewRoom = async () => {
@@ -62,6 +63,16 @@ function Home() {
                             )}
                         </div>
                     </div>
+                </div>
+                <div className="users-container">
+                    {!room && 
+                        usersList?.map((u: DocumentData) => {
+                            console.log(u)
+                            return(
+                                <p>{u.user}</p>
+                            )
+                        })
+                    }
                 </div>
                 {room && <Chat room={room} roomsetting={setRoom}/>}
             </div>

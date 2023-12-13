@@ -1,4 +1,4 @@
-import { signInWithPopup, signOut } from "firebase/auth";
+import { getAdditionalUserInfo, signInWithPopup, signOut } from "firebase/auth";
 import { auth, provider, cookies } from "./fire";
 
 import { Dispatch, SetStateAction } from "react";
@@ -8,6 +8,8 @@ import "../css/Auth.css";
 import { Button, ThemeProvider, styled} from "@mui/material";
 import { FontTheme } from "../Material/MaterialThemes";
 import { GeneralButton } from "../Material/MaterialCustoms";
+import { addDoc, collection } from "firebase/firestore";
+import { addUser } from "../Functions/userFunctions";
 
 function Auth(props : {setAuth : Dispatch<SetStateAction<string>>, username: Dispatch<SetStateAction<string | null | undefined>>}) {
 
@@ -20,6 +22,11 @@ function Auth(props : {setAuth : Dispatch<SetStateAction<string>>, username: Dis
                 cookies.set(USER_COOKIE, result.user.displayName)
                 props.setAuth(result.user.refreshToken)
                 props.username(result.user.displayName)
+
+                if(getAdditionalUserInfo(result)?.isNewUser){
+                    addUser(result.user.displayName)
+                }
+                
             })
             .catch((error) => {
                 console.log(error)
