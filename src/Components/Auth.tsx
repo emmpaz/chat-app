@@ -5,10 +5,9 @@ import { Dispatch, SetStateAction } from "react";
 import { AUTH_COOKIE, USER_COOKIE } from "../Exports/types";
 
 import "../css/Auth.css";
-import { Button, ThemeProvider, styled} from "@mui/material";
+import { ThemeProvider} from "@mui/material";
 import { FontTheme } from "../Material/MaterialThemes";
 import { GeneralButton } from "../Material/MaterialCustoms";
-import { addDoc, collection } from "firebase/firestore";
 import { addUser } from "../Functions/userFunctions";
 
 function Auth(props : {setAuth : Dispatch<SetStateAction<string>>, username: Dispatch<SetStateAction<string | null | undefined>>}) {
@@ -22,7 +21,7 @@ function Auth(props : {setAuth : Dispatch<SetStateAction<string>>, username: Dis
                 cookies.set(USER_COOKIE, result.user.displayName)
                 props.setAuth(result.user.refreshToken)
                 props.username(result.user.displayName)
-
+                //if new user add to database
                 if(getAdditionalUserInfo(result)?.isNewUser){
                     addUser(result.user.displayName)
                 }

@@ -25,10 +25,12 @@
 
 .room-list-padding{
     height: 60%;
+    min-height: 300px;
     overflow: scroll;
     width: 100%;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
 }
 
 .room-category-title{
@@ -63,5 +65,4 @@
 }
 
 .users-container{
-    border-style: solid;
 }
