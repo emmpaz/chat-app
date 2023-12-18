@@ -2,21 +2,16 @@ import { PaletteColor, SimplePaletteColorOptions, createTheme } from "@mui/mater
 
 declare module '@mui/material/styles' {
     interface Palette {
-        custom : Palette['primary'];
+        custom: Palette['primary'];
     }
 
     interface PaletteOptions {
-        custom : PaletteOptions['primary'];
+        custom: PaletteOptions['primary'];
     }
 }
 
 export const FontTheme = createTheme({
     typography: {
-        fontFamily: 'Playfair Display, serif'
-    },
-    palette: {
-        custom: {
-            main: 'darkgreen',
-        }
+        fontFamily: 'Work Sans, sans-serif'
     }
 });

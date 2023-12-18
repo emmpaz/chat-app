@@ -1,13 +1,15 @@
 import { Dispatch, FormEvent, SetStateAction, useEffect, useState } from "react"
 import { collection, onSnapshot, query, where, DocumentData, orderBy } from "firebase/firestore";
-import { auth, db, cookies } from "./fire";
-import {v4 as uuid} from "uuid";
+import { db, cookies } from "./fire";
+import { v4 as uuid } from "uuid";
 import '../css/Chat.css';
 import { createMessage } from "../Functions/chatFunctions";
 import { GeneralButton } from "../Material/MaterialCustoms";
-import { ThemeProvider } from "@emotion/react";
-import { Input } from "@mui/material";
-
+import { IconButton, Input, TextField, ThemeProvider } from "@mui/material";
+import { ChatItem } from "./ChatItem";
+import { USER_COOKIE } from "../Exports/types";
+import { FontTheme } from "../Material/MaterialThemes";
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 type ScrollContainer = {
     scrollTop?: number;
@@ -46,7 +48,7 @@ const Chat = (props: { room: string, roomsetting: Dispatch<SetStateAction<string
         if (newMessage == "") return;
 
         createMessage(newMessage, props.room);
-        
+
         setNewMessage("")
     }
 
@@ -57,7 +59,6 @@ const Chat = (props: { room: string, roomsetting: Dispatch<SetStateAction<string
 
     return (
         <div className="chat-full-container">
-            {props.room}
             <div>
                 <GeneralButton onClick={handleLeaving}>leave</GeneralButton>
             </div>
@@ -66,17 +67,32 @@ const Chat = (props: { room: string, roomsetting: Dispatch<SetStateAction<string
                     {
                         messages.map((m: DocumentData) => {
                             return (
-                                <div className={(auth.currentUser?.displayName == m.user) ? "indepedent-message-self" : "indepedent-message-other"} key={uuid()}>
-                                    <p key={uuid()}>{m.user}</p>
-                                    <h3 key={uuid()}>{m.text}</h3>
+                                <div className={((cookies.get(USER_COOKIE) == m.user)) ? "chat-item-container-self" : "chat-item-container-other"} key={uuid()}>
+                                    <ChatItem message={m.text} username={m.user} self={(cookies.get(USER_COOKIE) == m.user)} />
                                 </div>
                             )
                         })
                     }
                 </div>
                 <form className="new-message">
-                    <Input className="new-message-input" value={newMessage} onChange={(e) => { setNewMessage(e.target.value) }} />
-                    <GeneralButton onClick={handleSubmit} type="submit" className="send-button">Send</GeneralButton>
+                    <ThemeProvider theme={FontTheme}>
+                        <TextField
+                            sx={{
+                                '.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
+                                },
+
+                                '.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                    borderColor: "darkgreen",
+                                }
+                            }} className="new-message-input" value={newMessage} onChange={(e) => { setNewMessage(e.target.value) }} size="small" />
+                        <IconButton onClick={handleSubmit} type="submit" className="send-button">
+                            <ArrowForwardIcon sx={{
+                                '.MuiButtonBase-root .send-button': {
+                                    color: 'darkgreen !important'
+                                }
+                            }} />
+                        </IconButton>
+                    </ThemeProvider>
                 </form>
             </div>
         </div>

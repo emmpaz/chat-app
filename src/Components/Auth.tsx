@@ -5,12 +5,12 @@ import { Dispatch, SetStateAction } from "react";
 import { AUTH_COOKIE, USER_COOKIE } from "../Exports/types";
 
 import "../css/Auth.css";
-import { ThemeProvider} from "@mui/material";
+import { ThemeProvider } from "@mui/material";
 import { FontTheme } from "../Material/MaterialThemes";
 import { GeneralButton } from "../Material/MaterialCustoms";
 import { addUser } from "../Functions/userFunctions";
 
-function Auth(props : {setAuth : Dispatch<SetStateAction<string>>, username: Dispatch<SetStateAction<string | null | undefined>>}) {
+function Auth(props: { setAuth: Dispatch<SetStateAction<string>>, username: Dispatch<SetStateAction<string | null | undefined>> }) {
 
     //handle sign in with google and set cookies
     const handleSignIn = async () => {
@@ -22,10 +22,10 @@ function Auth(props : {setAuth : Dispatch<SetStateAction<string>>, username: Dis
                 props.setAuth(result.user.refreshToken)
                 props.username(result.user.displayName)
                 //if new user add to database
-                if(getAdditionalUserInfo(result)?.isNewUser){
+                if (getAdditionalUserInfo(result)?.isNewUser) {
                     addUser(result.user.displayName)
                 }
-                
+
             })
             .catch((error) => {
                 console.log(error)
@@ -34,31 +34,31 @@ function Auth(props : {setAuth : Dispatch<SetStateAction<string>>, username: Dis
     //handling sign out
     const handleSignOut = async () => {
         signOut(auth)
-        .then((result) => {
-            console.log(result)
-            cookies.set(AUTH_COOKIE, "")
-            cookies.set(USER_COOKIE, "")
-            window.location.reload();
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+            .then((result) => {
+                console.log(result)
+                cookies.set(AUTH_COOKIE, "")
+                cookies.set(USER_COOKIE, "")
+                window.location.reload();
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
 
-    if(cookies.get(AUTH_COOKIE) === ""){
+    if (cookies.get(AUTH_COOKIE) === "") {
         return (
             <div className="auth-sign-in-container">
                 <ThemeProvider theme={FontTheme}>
-                <GeneralButton 
-                    variant="text" 
-                    onClick={handleSignIn}
-                    size = "large"
-                >sign in/sign up</GeneralButton>
+                    <GeneralButton
+                        variant="text"
+                        onClick={handleSignIn}
+                        size="large"
+                    >sign in/sign up</GeneralButton>
                 </ThemeProvider>
             </div>
         )
     }
-    return(
+    return (
         <div className="auth-sign-out-container">
             <ThemeProvider theme={FontTheme}>
                 <GeneralButton onClick={handleSignOut}>sign out</GeneralButton>

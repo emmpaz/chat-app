@@ -8,5 +8,7 @@
 }
 
 .auth-sign-out-container{
-    width: 100%;
+    display: flex;
+    grid-area: signout;
+    justify-self: end;
 }
