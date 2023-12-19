@@ -85,12 +85,12 @@ const Chat = (props: { room: string, roomsetting: Dispatch<SetStateAction<string
                                     borderColor: "darkgreen",
                                 }
                             }} className="new-message-input" value={newMessage} onChange={(e) => { setNewMessage(e.target.value) }} size="small" />
-                        <IconButton onClick={handleSubmit} type="submit" className="send-button">
-                            <ArrowForwardIcon sx={{
-                                '.MuiButtonBase-root .send-button': {
-                                    color: 'darkgreen !important'
-                                }
-                            }} />
+                        <IconButton sx={{
+                            svg: {
+                                color: 'darkgreen'
+                            }
+                        }} onClick={handleSubmit} type="submit" className="send-button">
+                            <ArrowForwardIcon />
                         </IconButton>
                     </ThemeProvider>
                 </form>

@@ -87,7 +87,7 @@ function Home() {
         <div className="home-100-container">
             <div className='home-center-content-container'>
                 <div className='header-room-sign-out-container'>
-                    <p className='header-room-paragraph'>{(room) ? room : ""}</p>
+                    <p className='header-room-paragraph'>{(room) ? "welcome, " + cookies.get(USER_COOKIE) + " " + room : "welcome, " + cookies.get(USER_COOKIE)}</p>
                     <Auth setAuth={setIsAuth} username={setName} />
                 </div>
                 <div className="home-room-list-new-room-container">
@@ -134,7 +134,7 @@ function Home() {
                                                         }
                                                     }}
                                                     placeholder='new chatroom name'
-                                                    inputRef={roomRef} />
+                                                    inputRef={roomRef} size='small' />
                                             </ThemeProvider>
                                             <GeneralButton onClick={handleNewRoom} style={{ margin: "10px 0 0 0" }}>start chatting :)</GeneralButton>
 
